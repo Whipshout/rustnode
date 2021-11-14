@@ -1,0 +1,19 @@
+{
+  "name": "rust-node",
+  "author": "Eduardo S. <whipshout@gmail.com>",
+  "description": "Use a Rust binary in Javascript",
+  "version": "1.0.0",
+  "main": "main.js",
+  "scripts": {
+    "start": "node main.js",
+    "build": "cargo-cp-artifact -nc index.node -- cargo build --release --message-format=json-render-diagnostics",
+    "test:js": "jest",
+    "test:rust": "cargo test"
+  },
+  "dependencies": {
+    "cargo-cp-artifact": "^0.1.5"
+  },
+  "devDependencies": {
+    "jest": "^27.3.1"
+  }
+}

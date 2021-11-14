@@ -1,0 +1,13 @@
+[package]
+name = "rust-node"
+version = "0.1.0"
+edition = "2021"
+authors = ["Eduardo S. <whipshout@gmail.com>"]
+description = "Use a Rust binary in javascript"
+exclude = ["index.node", "package.json", "package-lock.json", "main.js", "./test/*", "./node_modules/*"]
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+neon = { version = "0.9", default-features = false, features = ["napi-6"] }
