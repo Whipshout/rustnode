@@ -11,3 +11,5 @@ crate-type = ["cdylib"]
 
 [dependencies]
 neon = { version = "0.9", default-features = false, features = ["napi-6"] }
+sha2 = "0.9.8"
+rand = "0.8.4"

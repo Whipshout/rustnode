@@ -3,6 +3,8 @@ use neon::handle::Handle;
 use neon::object::Object;
 use neon::result::{JsResult, NeonResult};
 use neon::types::{JsArray, JsNumber, JsString, JsValue};
+use rand::RngCore;
+use sha2::{Digest, Sha256};
 
 /// Calculates fibonacci of n
 fn fibonacci(n: i32) -> i32 {
@@ -10,7 +12,7 @@ fn fibonacci(n: i32) -> i32 {
     match n {
         n if n < 1 => 0,
         n if n <= 2 => 1,
-        _ => fibonacci(n - 1) + fibonacci(n - 2),
+        _ => fibonacci(n - 1) + fibonacci(&n - 2),
     }
 }
 
@@ -76,9 +78,45 @@ fn multiply_each_item_for_two_api(mut cx: FunctionContext) -> JsResult<JsArray> 
     Ok(js_array)
 }
 
+/// Generate 100K Sha256 hashes with random bytes
+fn generate_hashes_api(mut cx: FunctionContext) -> JsResult<JsNumber> {
+    let number = cx.argument::<JsNumber>(0)?.value(&mut cx);
+
+    let mut all_data = vec![];
+
+    for _ in 0..number as i64 {
+        let mut data = [0u8; 18];
+        rand::thread_rng().fill_bytes(&mut data);
+        all_data.push(data);
+    }
+
+    for data in all_data.iter() {
+        let mut hasher = Sha256::new();
+        hasher.update(data);
+
+        let result = hasher.finalize();
+
+        let _hash = format!("{:x}", result);
+    }
+
+    Ok(cx.number(0))
+}
+
+/// Generate 1 Sha256 hash with a JS param
+fn generate_hash(mut cx: FunctionContext) -> JsResult<JsString> {
+    let data = cx.argument::<JsString>(0)?.value(&mut cx);
+
+    let mut hasher = Sha256::new();
+    hasher.update(data);
+
+    Ok(cx.string(format!("{:x}", hasher.finalize())))
+}
+
 /// Export the functions to Javascript and rename them
 #[neon::main]
 fn main(mut cx: ModuleContext) -> NeonResult<()> {
+    cx.export_function("generate_hashes_rs", generate_hashes_api)?;
+    cx.export_function("generate_hash_rs", generate_hash)?;
     cx.export_function("fibonacci_rs", fibonacci_api)?;
     cx.export_function(
         "multiply_each_item_for_two_rs",

@@ -72,4 +72,11 @@
 - This time, I have not checked the performance of the functions, but as we could see when we tested **WebAssembly**, we already gained **a lot of performance at that time without even using native Rust**.<br>
 
 
-- Looking at the documentation, we can import entire **Javascript classes**, use them as Rust structures, and we can also use **asynchronous programming** without any problem.
+- Looking at the documentation, we can import entire **Javascript classes**, use them as Rust structures, and we can also use **asynchronous programming** without any problem.<br><br>
+
+## Comparison Sha256 hash Rust and JS
+
+<br>
+
+
+![Performance](./resources/hashesperformance.PNG)
