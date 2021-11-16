@@ -23,7 +23,7 @@ generate_hashes_rs(100000);
 console.timeEnd('Generate 100K hashes in Rust')
 console.log('------------------------------------------------------')
 
-const inputStrings = Array.from({ length: 100000 }, () => randomBytes(18).toString('hex'))
+const inputStrings = Array.from({ length: 100000 }, () => randomBytes(70).toString('hex'))
 
 console.time('Generate 100K hashes in JS')
 for (let i = 0; i < inputStrings.length - 1; i++) {

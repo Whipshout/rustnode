@@ -85,7 +85,7 @@ fn generate_hashes_api(mut cx: FunctionContext) -> JsResult<JsNumber> {
     let mut all_data = vec![];
 
     for _ in 0..number as i64 {
-        let mut data = [0u8; 18];
+        let mut data = [0u8; 70];
         rand::thread_rng().fill_bytes(&mut data);
         all_data.push(data);
     }

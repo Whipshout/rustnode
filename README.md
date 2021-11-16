@@ -78,5 +78,12 @@
 
 <br>
 
+Sha256 **18 bytes** item
 
 ![Performance](./resources/hashesperformance.PNG)
+
+<br>
+
+Sha256 **70 bytes** item
+
+![Performance](./resources/hashesperformance70.PNG)
